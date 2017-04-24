@@ -18,13 +18,16 @@ public class ManagementTicketFormat implements ManagementTicketStrategy {
             throw new IllegalArgumentException(EXCEPTION);
         } else {
             StringBuilder string;
-            string = new StringBuilder("Bill's Garage Management");
+            string = new StringBuilder("----------Bill's Garage Management----------");
             string.append("\n");
-            string.append("Total fees collected: ").append(checkout.getDailyFeesCharged());
+            string.append("Total fees collected: $").append(checkout.getDailyFeesCharged());
             string.append("\n");
             string.append("Total hours clocked: ").append(checkout.getDailyHoursParked());
             string.append("\n");
             string.append("Total cars parked: ").append(checkout.getCarCount());
+            string.append("\n");
+            string.append("--------------------------------------------");
+            string.append("\n");
             String managementString = string.toString();
             return managementString;
         }

@@ -9,7 +9,7 @@ package wad.parkinggarageapp;
  *
  * @author Billy-Mac
  */
-public class CheckoutTerminal {
+public class ORIGINAL_CHECKOUTTERMINAL {
     private final String EXCEPTION = "Error with Checkout Terminal";
     private Garage garage;
     private Ticket ticket;
@@ -18,27 +18,19 @@ public class CheckoutTerminal {
     private TicketStorage ticketStorage;
     private ManagementTicketFormat management;
     private FeeCalculatorStrategy feeCalc;
-    private testReceiptFormatStrategy receiptFormat;
     private TicketFormatStrategy format;
-    private Receipt receipt;
     private double dailyFeesCharged;
     private int dailyHoursParked;
     private int carCount;
     private int hoursParked;
     
-    public CheckoutTerminal(Garage garage, 
-                            OutputStrategy output, 
-                            TicketStorage ticketStorage, 
-                            FeeCalculatorStrategy feeCalc,
-                            testReceiptFormatStrategy receiptFormat,
-                            TicketFormatStrategy format,
-                            ManagementTicketFormat management) {
-        if (garage == null || output == null || ticketStorage == null || feeCalc == null || receiptFormat == null || format == null){
+    public ORIGINAL_CHECKOUTTERMINAL(Garage garage, OutputStrategy output, TicketStorage ticketStorage, FeeCalculatorStrategy feeCalc, TicketFormatStrategy format,
+            ManagementTicketFormat management){
+        if (garage == null || output == null || ticketStorage == null || feeCalc == null || format == null){
             throw new IllegalArgumentException(EXCEPTION);
         }
         this.management = management;
         this.format = format;
-        this.receiptFormat = receiptFormat;
         this.garage = garage;
         this.output = output;
         this.ticketStorage = ticketStorage;
@@ -48,15 +40,13 @@ public class CheckoutTerminal {
     public final int getRandomNumberOfHoursParked(){
         return (int)(Math.random() * 24 + 1);
     }
+    
     public final void checkoutTicket(int ticketNumber){
         ticket = ticketStorage.findTicketByTicketNumber(ticketNumber);
+        
         ticket.setHoursParked(getRandomNumberOfHoursParked());
         ticket.setFee(feeCalc.getFee(ticket.getHoursParked()));
-        
-        receipt = new Receipt(ticket);
-        String formatOutput = receiptFormat.formatReceipt(receipt);
-
-//format.formatTicket(ticket);
+        String formatOutput = format.formatTicket(ticket);
         dailyHoursParked += ticket.getHoursParked();
         dailyFeesCharged += ticket.getFee();
         carCount += 1;
@@ -68,6 +58,7 @@ public class CheckoutTerminal {
     private final void printElectronicDisplay(){
         format = new ElectronicDisplayTicketFormat();
         output.getOutput(format.formatTicket(ticket));
+        format = new ReceiptTicketFormat();
     }
     
     private final void printManagementOutput(){
@@ -145,19 +136,19 @@ public class CheckoutTerminal {
         this.feeCalc = feeCalc;
     }
 
-//    public final TicketFormatStrategy getFormat() {
-//        if (format == null){
-//            throw new IllegalArgumentException(EXCEPTION);
-//        }
-//        return format;
-//    }
-//
-//    public final void setFormat(TicketFormatStrategy format) {
-//        if (format == null){
-//            throw new IllegalArgumentException(EXCEPTION);
-//        }
-//        this.format = format;
-//    }
+    public final TicketFormatStrategy getFormat() {
+        if (format == null){
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        return format;
+    }
+
+    public final void setFormat(TicketFormatStrategy format) {
+        if (format == null){
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        this.format = format;
+    }
 
     public final double getDailyFeesCharged() {
         if (dailyFeesCharged <= 0){

@@ -19,22 +19,23 @@ public class testMinMaxFeeCalculator implements FeeCalculatorStrategy {
     private double fee;
 
     public testMinMaxFeeCalculator() {
-        setMinHours(3.0);
         setMaxHours(24.0);
-        setMinFee(2.0);
+        setMinHours(3.0);
         setMaxFee(10.0);
+        setMinFee(2.0);
         setHourlyFee(0.5);
     }
     
     public testMinMaxFeeCalculator(double minHours, double maxHours, double minFee, double maxFee, double hourlyFee) {
-        setMinHours(minHours);
         setMaxHours(maxHours);
-        setMinFee(minFee);
+        setMinHours(minHours);
         setMaxFee(maxFee);
+        setMinFee(minFee);
         setHourlyFee(hourlyFee);
     }
     
     
+    @Override
     public final double getFee(double parkedHours) {
         if (parkedHours < 0 || parkedHours > maxHours){
             throw new IllegalArgumentException(EXCEPTION);

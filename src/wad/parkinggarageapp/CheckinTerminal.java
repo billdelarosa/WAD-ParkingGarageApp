@@ -5,6 +5,8 @@
  */
 package wad.parkinggarageapp;
 
+import java.time.LocalDateTime;
+
 /**
  *
  * @author Billy-Mac
@@ -13,14 +15,13 @@ public class CheckinTerminal {
     private final String EXCEPTION = "Error with Check-in Terminal";
     private Garage garage;
     private Ticket ticket;
-    private Vehicle vehicle;
     private OutputStrategy output;
     private int ticketNumber;
     private TicketStorage ticketStorage;
     private TicketFormatStrategy format;
     
     public CheckinTerminal(Garage garage, OutputStrategy output, TicketFormatStrategy format) {
-        if (garage == null || output == null){
+        if (garage == null || output == null || format == null){
             throw new IllegalArgumentException(EXCEPTION);
         }
         this.format = format;
@@ -29,9 +30,9 @@ public class CheckinTerminal {
     }
     
     public final void printNewTicket() {
+        
         ticketStorage = new TicketStorage();
-        ticketNumber += 1;
-        vehicle = new Vehicle(); 
+        ticketNumber += 1; 
         ticket = new Ticket(garage.getGarageName(), ticketNumber);
         ticketStorage.addTicketToStorage(ticket);
         output.getOutput(format.formatTicket(ticket));

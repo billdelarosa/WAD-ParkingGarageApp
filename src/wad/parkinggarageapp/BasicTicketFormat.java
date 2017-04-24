@@ -15,11 +15,12 @@ public class BasicTicketFormat implements TicketFormatStrategy {
         } else {
 
             StringBuilder string;
-            string = new StringBuilder("Welcome to " + ticket.getGarageName());
+            string = new StringBuilder("---------- Welcome to " + ticket.getGarageName() + "----------");
             string.append("\n");
             string.append("Ticket Number: ").append(ticket.getTicketNumber());
             string.append("\n");
-            string.append("Have a nice day ");
+            string.append("------------ Have a nice day! -------------- ");
+            string.append("\n");
             String ticketString = string.toString();
             return ticketString;
         }

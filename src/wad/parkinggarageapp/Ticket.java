@@ -16,7 +16,7 @@ public class Ticket {
     private double fee;
     private static int ticketNumber;
     
-    public Ticket(String garageName, int ticketNumber){
+    public Ticket(String garageName, int ticketNumber) {
         setTicketNumber(ticketNumber);
         setGarageName(garageName);
     }
@@ -77,4 +77,7 @@ public class Ticket {
         }
         this.fee = fee;
     }    
+
+    
+    
 }

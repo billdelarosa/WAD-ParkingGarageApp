@@ -19,11 +19,13 @@ public class ElectronicDisplayTicketFormat implements TicketFormatStrategy {
         } else {
 
             StringBuilder string;
-            string = new StringBuilder("Electronic Display");
+            string = new StringBuilder("----------Electronic Display----------");
             string.append("\n");
             string.append("Hours Parked: ").append(ticket.getHoursParked());
             string.append("\n");
-            string.append("Fee owed: ").append(ticket.getFee());
+            string.append("Fee owed: $").append(ticket.getFee());
+            string.append("\n");
+            string.append("----------------------------------");
             String electronicDisplayString = string.toString();
             return electronicDisplayString;
         }
