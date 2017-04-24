@@ -145,19 +145,19 @@ public class CheckoutTerminal {
         this.feeCalc = feeCalc;
     }
 
-//    public final TicketFormatStrategy getFormat() {
-//        if (format == null){
-//            throw new IllegalArgumentException(EXCEPTION);
-//        }
-//        return format;
-//    }
-//
-//    public final void setFormat(TicketFormatStrategy format) {
-//        if (format == null){
-//            throw new IllegalArgumentException(EXCEPTION);
-//        }
-//        this.format = format;
-//    }
+    public final TicketFormatStrategy getFormat() {
+        if (format == null){
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        return format;
+    }
+
+    public final void setFormat(TicketFormatStrategy format) {
+        if (format == null){
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        this.format = format;
+    }
 
     public final double getDailyFeesCharged() {
         if (dailyFeesCharged <= 0){
