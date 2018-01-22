@@ -6,6 +6,7 @@
 package wad.parkinggarageapp;
 
 import java.time.LocalDateTime;
+import java.util.Objects;
 
 /**
  *
@@ -30,6 +31,8 @@ public class CheckinTerminal {
     }
     
     public final void printNewTicket() {
+        // STORE LOCALDATETIME.NOW(); IN LOCAL VARIABLE -> PASS TO TICKET CONSTRUCTOR
+        
         
         ticketStorage = new TicketStorage();
         ticketNumber += 1; 
@@ -108,6 +111,62 @@ public class CheckinTerminal {
         }
         this.ticketStorage = ticketStorage;
     }
+
+    public TicketFormatStrategy getFormat() {
+        return format;
+    }
+
+    public void setFormat(TicketFormatStrategy format) {
+        if (format == null) { 
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        this.format = format;
+    }
+    
+    
+
+    @Override
+    public String toString() {
+        return "CheckinTerminal{" + "garage=" + garage + ", ticket=" + ticket + 
+                ", output=" + output + ", ticketNumber=" + ticketNumber 
+                + ", ticketStorage=" + ticketStorage + ", format=" + format;
+    }
+
+    @Override
+    public int hashCode() {
+        int hash = 7;
+        hash = 79 * hash + Objects.hashCode(this.garage);
+        hash = 79 * hash + Objects.hashCode(this.ticket);
+        hash = 79 * hash + this.ticketNumber;
+        return hash;
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
+            return true;
+        }
+        if (obj == null) {
+            return false;
+        }
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final CheckinTerminal other = (CheckinTerminal) obj;
+        if (this.ticketNumber != other.ticketNumber) {
+            return false;
+        }
+        if (!Objects.equals(this.garage, other.garage)) {
+            return false;
+        }
+        if (!Objects.equals(this.ticket, other.ticket)) {
+            return false;
+        }
+        return true;
+    }
+    
+    
+    
     
     
 }

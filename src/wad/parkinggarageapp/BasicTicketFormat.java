@@ -2,7 +2,7 @@ package wad.parkinggarageapp;
 
 /**
  *
- * @author Carson Schultz
+ * @author Billy-Mac
  */
 public class BasicTicketFormat implements TicketFormatStrategy {
 
@@ -25,5 +25,7 @@ public class BasicTicketFormat implements TicketFormatStrategy {
             return ticketString;
         }
     }
+    
+    
 
 }

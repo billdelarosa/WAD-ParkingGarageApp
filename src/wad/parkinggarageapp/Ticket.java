@@ -16,6 +16,7 @@ public class Ticket {
     private double fee;
     private static int ticketNumber;
     
+    // ADD LOCALDATETIME CONSTRUCTOR PARAMETER
     public Ticket(String garageName, int ticketNumber) {
         setTicketNumber(ticketNumber);
         setGarageName(garageName);

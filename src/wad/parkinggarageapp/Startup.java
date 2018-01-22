@@ -16,10 +16,10 @@ public class Startup {
         OutputStrategy output = new GuiOutput();
         TicketFormatStrategy format = new ElectronicDisplayTicketFormat();
         TicketFormatStrategy ticketFormat = new BasicTicketFormat();
-        testReceiptFormatStrategy receiptFormat = new testBasicReceiptFormat();
+        ReceiptFormatStrategy receiptFormat = new BasicReceiptFormat();
         ManagementTicketFormat management = new ManagementTicketFormat();
         TicketStorage storage = new TicketStorage();
-        FeeCalculatorStrategy calc = new testMinMaxFeeCalculator();
+        FeeCalculatorStrategy calc = new MinMaxFeeCalculator();
         
         CheckinTerminal ct = new CheckinTerminal(garage, output, ticketFormat);
 //        ORIGINAL_CHECKOUTTERMINAL checkout = new ORIGINAL_CHECKOUTTERMINAL(garage, output, storage, calc, receiptFormat, management);

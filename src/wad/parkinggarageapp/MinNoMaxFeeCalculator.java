@@ -11,22 +11,34 @@ package wad.parkinggarageapp;
  */
 public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
     private final String EXCEPTION = "Error with Min No Max Fee Calculator";
-    private final int MIN_HOURS = 2;
-    private final double MIN_FEE = 1.5;
-    private final double HOURLY_FEE = 0.75;
-    private double fee;
+    private int minHours;
+    private double minFee;
+    private double hourlyFee;
+    private double totalFee;
+    
+    public MinNoMaxFeeCalculator() {
+        setMinHours(2);
+        setMinFee(1.5);
+        setHourlyFee(0.75);
+    }
+    
+    public MinNoMaxFeeCalculator(int minHours, double minFee, double hourlyFee) {
+        setMinHours(minHours);
+        setMinFee(minFee);
+        setHourlyFee(hourlyFee);
+    }
     
     public final double getFee(double hoursParked) {
         if (hoursParked < 0) {
             throw new IllegalArgumentException(EXCEPTION);
         } else {
             hoursParked = Math.ceil(hoursParked);
-            if (hoursParked <= MIN_HOURS) {
-                fee = MIN_FEE;
-            } else if (hoursParked > MIN_HOURS) {
-                fee = MIN_FEE + ((hoursParked - MIN_HOURS) * HOURLY_FEE);
+            if (hoursParked <= minHours) {
+                totalFee = minFee;
+            } else if (hoursParked > minHours) {
+                totalFee = minFee + ((hoursParked - minHours) * hourlyFee);
             }
-            return fee;
+            return totalFee;
         }
     }
 
@@ -34,7 +46,53 @@ public class MinNoMaxFeeCalculator implements FeeCalculatorStrategy {
         if (fee < 0) {
             throw new IllegalArgumentException(EXCEPTION);
         } else {
-            this.fee = fee;
+            fee = totalFee;
         }
     }
+
+    public int getMinHours() {
+        return minHours;
+    }
+
+    public void setMinHours(int minHours) {
+        if (minHours < 1) {
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        this.minHours = minHours;
+    }
+
+    public double getMinFee() {
+        return minFee;
+    }
+
+    public void setMinFee(double minFee) {
+        if (minFee < 0) {
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        this.minFee = minFee;
+    }
+
+    public double getHourlyFee() {
+        return hourlyFee;
+    }
+
+    public void setHourlyFee(double hourlyFee) {
+        if (hourlyFee < 0) {
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        this.hourlyFee = hourlyFee;
+    }
+
+    public double getTotalFee() {
+        return totalFee;
+    }
+
+    public void setTotalFee(double totalFee) {
+        if (totalFee < 0 || totalFee < minFee) {
+            throw new IllegalArgumentException(EXCEPTION);
+        }
+        this.totalFee = totalFee;
+    }
+
+    
 }

@@ -18,7 +18,7 @@ public class CheckoutTerminal {
     private TicketStorage ticketStorage;
     private ManagementTicketFormat management;
     private FeeCalculatorStrategy feeCalc;
-    private testReceiptFormatStrategy receiptFormat;
+    private ReceiptFormatStrategy receiptFormat;
     private TicketFormatStrategy format;
     private Receipt receipt;
     private double dailyFeesCharged;
@@ -30,7 +30,7 @@ public class CheckoutTerminal {
                             OutputStrategy output, 
                             TicketStorage ticketStorage, 
                             FeeCalculatorStrategy feeCalc,
-                            testReceiptFormatStrategy receiptFormat,
+                            ReceiptFormatStrategy receiptFormat,
                             TicketFormatStrategy format,
                             ManagementTicketFormat management) {
         if (garage == null || output == null || ticketStorage == null || feeCalc == null || receiptFormat == null || format == null){
@@ -49,14 +49,24 @@ public class CheckoutTerminal {
         return (int)(Math.random() * 24 + 1);
     }
     public final void checkoutTicket(int ticketNumber){
+        // LOCALDATETIME ENDTIME = LOCALDATETIME.NOW();
+        // LOCALDATETIME STARTTIME = TICKET.GETSTARTTIME();
+        // DATE UTILITY HERE
+        
         ticket = ticketStorage.findTicketByTicketNumber(ticketNumber);
+        
+        // THIS CODE WILL BE CHANGED
+        // TICKET.SETHOURSPARKED(FUNCTION(ENDTIME - STARTTIME));
+        // TICKET.SETFEE(FEECALC.GETFEE(TICKET.GETHOURSPARKED()));
+        
         ticket.setHoursParked(getRandomNumberOfHoursParked());
         ticket.setFee(feeCalc.getFee(ticket.getHoursParked()));
         
         receipt = new Receipt(ticket);
         String formatOutput = receiptFormat.formatReceipt(receipt);
 
-//format.formatTicket(ticket);
+        format.formatTicket(ticket);
+        
         dailyHoursParked += ticket.getHoursParked();
         dailyFeesCharged += ticket.getFee();
         carCount += 1;
